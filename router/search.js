@@ -7,10 +7,10 @@ function sortIsPopular(estateData) {
     let ini = 0;
     let last = estateData.length - 1
     while (last > ini) {
-        while (estateData[ini].isPopular) {
+        while (estateData[ini].isPopular && last > ini) {
             ini++;
         }
-        while (!estateData[last].isPopular) {
+        while (!estateData[last].isPopular && last > 0) {
             last--;
         }
         if (last > ini) {
@@ -26,13 +26,12 @@ function sortIsPopular(estateData) {
 router.get("/", (req, res) => {
     const searchData = req.query
 
-    console.log(searchData)
-    const search = {
-        houseAddress: searchData.houseAddress,
-        estateType: searchData.estateType,
-        houseRent: { $lte: searchData.houseRent },
-    }
-    console.log(search)
+    // console.log(searchData)
+    const search = {}
+    if (searchData.houseAddress) search.houseAddress = searchData.houseAddress
+    if (searchData.estateType) search.estateType = searchData.estateType
+    if (searchData.houseRent) search.houseRent = { $lte: parseInt(searchData.houseRent) }
+    console.log(search);
     Estate.find(search, (err, docs) => {
         if (err) {
             res.json({ error: err });

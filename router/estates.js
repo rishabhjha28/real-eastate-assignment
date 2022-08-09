@@ -37,7 +37,6 @@ router.get("/", (req, res) => {
 
 router.post('/', async (req, res) => {
     const data = req.body;
-    console.log(data.housename);
     const newEstate = new Estate(data);
     const saveEstate = await newEstate.save();
     if (saveEstate) {

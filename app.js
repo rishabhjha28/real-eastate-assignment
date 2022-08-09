@@ -2,13 +2,10 @@ const dotenv = require("dotenv");
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const path = require('path')
 dotenv.config({ path: './config.env' });
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-
 
 
 
@@ -30,6 +27,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const port = process.env.PORT || 80
+
 app.listen(port, () => {
     console.log("Server Started Successfully At Port", port);
 });
